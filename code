@@ -1,0 +1,56 @@
+termos=["ganhe","clique","urgente","!!!!","????","100%","lucro","noticia","perigo",
+"bombastica","libera","dinheiro","agora","mesmo","divida","aviso","receita","link","...","caixa","lucro","banco","consulte"]
+mensagem="ganhe dinheiro fácil AGORA MESMO clique no link... !!!!".lower()
+mensagem1="noticia BOMBÁSTICA BANCO CAIXA libera dinheiro clique no link e consulte !!!!".lower()
+mensagem2="urgente, perigo, consulte no link.".lower()
+mensagem3="ganhe 100% de lucro".lower()
+
+termos=[t.lower() for t in termos]
+
+resultado1=[1 if termo in mensagem else 0 for termo in termos]
+resultado2=[1 if termo in mensagem1 else 0 for termo in termos]
+resultado3=[1 if termo in mensagem2 else 0 for termo in termos]
+resultado4=[1 if termo in mensagem3 else 0 for termo in termos]
+
+print("num:",resultado1)
+print("num:",resultado2)
+
+print("num:",resultado3)
+print("num:",resultado4)
+  
+# Parte de aprendizado/ Comparativo
+
+termos_corretos= [
+("Ola,tudo bem?",0),
+("urgente, perigo, consulte no link.",1),
+("Prezado Sr(a)",0),
+("Comunicamos que",0),
+("Email automatico, não responda",0),
+("Comunicamos que",0),
+("Entre em contato com nossa team",0),
+("noticia BOMBÁSTICA BANCO CAIXA libera dinheiro clique no link e consulte !!!!",1),
+("ganhe 100% de lucro",1),
+("ganhe dinheiro fácil AGORA MESMO clique no link... !!!!",1),
+]
+
+import random
+
+pesos= [random.random() for _ in range(len(termos))]
+
+soma=sum(e*p for e,p in zip(resultado1,pesos))
+soma=sum(e*p for e,p in zip(resultado2,pesos))
+soma=sum(e*p for e,p in zip(resultado3,pesos))
+soma=sum(e*p for e,p in zip(resultado4,pesos))
+
+
+bias= random.random()
+
+import math
+
+def sigmoid(x):
+ return 1/ (1 + math.exp(-x))
+
+
+x=soma+bias
+result= sigmoid(x)
+print(result)
